@@ -7,9 +7,12 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="utiljavaee" />
+        <module name="utiljavaemail" />
+        <module name="utiljavaexcel" />
         <module name="utiljavaio" />
         <module name="utiljavanetwork" />
         <module name="utiljavase" />
+        <module name="utiljavasql" />
       </profile>
     </annotationProcessing>
   </component>

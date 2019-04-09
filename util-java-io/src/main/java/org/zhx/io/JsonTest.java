@@ -9,5 +9,7 @@ public class JsonTest {
 
     public static void main(String[] args) {
         System.out.println("---------------------");
+        System.out.println(Integer.SIZE);
+        System.out.println(Long.SIZE);
     }
 }

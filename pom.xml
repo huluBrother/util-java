@@ -13,6 +13,9 @@
       <module>util-java-io</module>
       <module>util-java-network</module>
       <module>util-java-ee</module>
+      <module>util-java-sql</module>
+      <module>util-java-email</module>
+      <module>util-java-excel</module>
     </modules>
 
     <properties>
