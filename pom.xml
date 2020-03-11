@@ -16,6 +16,8 @@
       <module>util-java-sql</module>
       <module>util-java-email</module>
       <module>util-java-excel</module>
+      <module>util-java-audio</module>
+        <module>case</module>
     </modules>
 
     <properties>
