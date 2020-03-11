@@ -10,24 +10,13 @@ public class MiniMaxSearch {
     public static int minimax(TicTacToeGame game , int robotPlayer,int depth,BestPoint bestAction){
         int result = game.gameOver();
         if(result != TicTacToeGame.EMPTY){
-            //在这里就需要评分了，这里可能是所有人赢，这个分数如何确定
-            int curPlayer = game.getCurPlayer();//现在应该这个玩家操作
-            if(curPlayer == robotPlayer){//上一层是机器人
-                if(result == robotPlayer){//自己赢了
-                    return 1;
-                }else if(result == (robotPlayer * -1)){//对手赢了
-                    return -1;
-                }else{
-                    return 0;//和了
-                }
-            }else{//上一层是真人
-                if(result == robotPlayer){//自己输了
-                    return -1;
-                }else if(result == (robotPlayer * -1)){//对手输了
-                    return 1;
-                }else{
-                    return 0;//和了
-                }
+            //这里无论如何都只针对机器人评分，不需要区分玩家类别
+            if(result == robotPlayer){
+                return 1;//自己赢了
+            }else if(result == TicTacToeGame.GAMEOVER){
+                return 0;//和棋了
+            }else {
+                return -1;//输了
             }
         }
 
@@ -40,25 +29,14 @@ public class MiniMaxSearch {
 
                 game.move(p);
                 int score = minimax(game,robotPlayer,depth+1,bestAction);
-
-                StringBuffer buffer = new StringBuffer(depth).append(" 玩家为:").append(game.getCurPlayer());
-                for(int i=0;i<depth;i++){
-                    buffer.append(" -->");
-                }
-                buffer.append(game.toString());
-                buffer.append(" 当前分数为:").append(score).append(" 走法为 ").append(p);
-                buffer.append(" 最好分数 ").append(bestScore).append( " 走法为");
-                if(bestAction.getPoint() == null){
-                    buffer.append("未定");
-                }else{
-                    buffer.append(bestAction.getPoint());
-                }
-                System.out.println(buffer.toString());
                 if(score > bestScore){
                     bestScore = score;
                     if(depth == 0){
                         bestAction.setPoint(p);
                     }
+                }
+                if(depth == 0){
+                    System.out.println(score + " : " + p);
                 }
                 game.unmove(p);
             }
@@ -73,24 +51,31 @@ public class MiniMaxSearch {
                 if(score < bestScore){
                     bestScore = score;
                 }
-
-                StringBuffer buffer = new StringBuffer(depth).append(" 玩家为:").append(game.getCurPlayer());
-                for(int i=0;i<depth;i++){
-                    buffer.append("-->");
-                }
-                buffer.append(game.toString());
-                buffer.append(" 当前分数为:").append(score).append(" 走法为 ").append(p);
-                buffer.append(" 最好分数 ").append(bestScore).append( " 走法为");
-                if(bestAction.getPoint() == null){
-                    buffer.append("未定");
-                }else{
-                    buffer.append(bestAction.getPoint());
-                }
-                System.out.println(buffer.toString());
                 game.unmove(p);
             }
             return bestScore;
         }
+    }
+
+
+    public static void main(String[] args) {
+        TicTacToeGame game = new TicTacToeGame();
+        game.move(0,2);
+        game.move(0,0);
+        game.move(1,0);
+
+        game.move(0,1);
+        game.move(1,2);
+        game.move(1,1);
+
+        int robotType = game.getCurPlayer();
+        BestPoint best = new BestPoint();
+        System.out.println(game);
+        System.out.println(robotType);
+        MiniMaxSearch.minimax(game,robotType,0,best);
+        game.move(best.getPoint());
+        System.out.println(game);
+
     }
 
 

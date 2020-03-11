@@ -6,8 +6,8 @@ import java.util.List;
 public class TicTacToeGame {
     public static final int ROW = 3;
     public static final int COL = 3;
-    public static final int BLACK = 1;
-    public static final int WHITE = -1;
+    public static final int BLACK = 1;//X
+    public static final int WHITE = -1;//O
     public static final int EMPTY = 0;
     public static final int GAMEOVER = 2;
 
