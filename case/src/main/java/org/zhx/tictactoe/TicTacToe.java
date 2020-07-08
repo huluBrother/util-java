@@ -31,12 +31,13 @@ public class TicTacToe {
                     PvP(game);
                     break;
                 case 2:
-
+                    PvR(game);
                     break;
                 case 3:
                     RvP(game);
                     break;
                 case 4:
+                    RvR(game);
                     break;
                 default:
                     gameOver = true;
@@ -54,7 +55,74 @@ public class TicTacToe {
         System.out.print(p.getY());
         System.out.println(")");
     }
+    private void PvR(TicTacToeGame game){
+        game.clean();
+        game.showGame();
+        int playerType = game.getCurPlayer() * -1;
+        List<Point>  allMove = new ArrayList<>();
+        while(game.gameOver() == TicTacToeGame.EMPTY){
+            Point action = null;
+            if(game.getCurPlayer() == playerType){
+                action = robotMove(game);
+            }else{
+                game.allMove(allMove);
+                for(int i = 0;i<allMove.size();i++){
+                    showAction(i,allMove.get(i));
+                }
+                System.out.print("您的棋子为 ");
+                if(game.getCurPlayer() == TicTacToeGame.WHITE){
+                    System.out.print(" O ");
+                }else{
+                    System.out.print(" X ");
+                }
 
+                System.out.println("输入>>>>>>>");
+                int movePos = sc.nextInt();
+                action = allMove.get(movePos);
+            }
+            game.move(action);
+            game.showGame();
+        }
+        switch (game.gameOver()){
+            case TicTacToeGame.WHITE:
+                System.out.println("O 赢了");
+                break;
+            case TicTacToeGame.BLACK:
+                System.out.println("X 赢了");
+                break;
+            case TicTacToeGame.GAMEOVER:
+                System.out.println("和了");
+                break;
+        }
+    }
+
+    private void RvR(TicTacToeGame game){
+        game.clean();
+        game.showGame();
+        int playerType = game.getCurPlayer() * -1;
+        List<Point>  allMove = new ArrayList<>();
+        while(game.gameOver() == TicTacToeGame.EMPTY){
+            Point action = null;
+            if(game.getCurPlayer() == playerType){
+                action = robotMove(game);
+            }else{
+                action = robotMove(game);
+            }
+            game.move(action);
+            game.showGame();
+        }
+        switch (game.gameOver()){
+            case TicTacToeGame.WHITE:
+                System.out.println("O 赢了");
+                break;
+            case TicTacToeGame.BLACK:
+                System.out.println("X 赢了");
+                break;
+            case TicTacToeGame.GAMEOVER:
+                System.out.println("和了");
+                break;
+        }
+    }
 
     private void RvP(TicTacToeGame game){
         game.clean();
@@ -77,9 +145,10 @@ public class TicTacToe {
                     System.out.print(" X ");
                 }
 
-                System.out.println("输入>>>>>>>");
+                System.out.println("输入(第几个走法)>>>>>>>");
                 int movePos = sc.nextInt();
                 action = allMove.get(movePos);
+
             }
             game.move(action);
             game.showGame();

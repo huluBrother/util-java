@@ -22,4 +22,5 @@ public class AccessibleObjectDemo {
      * 将此对象的 accessible标志设置为指示的布尔值。
      * void	setAccessible(boolean flag)
      */
+
 }

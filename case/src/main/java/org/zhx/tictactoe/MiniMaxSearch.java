@@ -3,6 +3,8 @@ package org.zhx.tictactoe;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.zhx.tictactoe.TicTacToeGame.WHITE;
+
 public class MiniMaxSearch {
     public static int INF = (Integer.MAX_VALUE - 20);
 
@@ -10,13 +12,25 @@ public class MiniMaxSearch {
     public static int minimax(TicTacToeGame game , int robotPlayer,int depth,BestPoint bestAction){
         int result = game.gameOver();
         if(result != TicTacToeGame.EMPTY){
-            //这里无论如何都只针对机器人评分，不需要区分玩家类别
-            if(result == robotPlayer){
-                return 1;//自己赢了
-            }else if(result == TicTacToeGame.GAMEOVER){
-                return 0;//和棋了
-            }else {
-                return -1;//输了
+
+            if(robotPlayer == WHITE) {//搜索起点是 白色玩家
+                //这里无论如何都只针对机器人评分，不需要区分玩家类别
+                if(result == robotPlayer){
+                    return 1*(9 - depth);//自己赢了
+                }else if(result == TicTacToeGame.GAMEOVER){
+                    return 0;//和棋了
+                }else {
+                    return -1 * (depth);//输了
+                }
+            }else{//搜索起点是黑色玩家
+                //这里无论如何都只针对机器人评分，不需要区分玩家类别
+                if(result == robotPlayer){
+                    return 1 * (9 - depth);//自己赢了
+                }else if(result == TicTacToeGame.GAMEOVER){
+                    return 0;//和棋了
+                }else {
+                    return -1 * (depth);//输了
+                }
             }
         }
 

@@ -8,8 +8,11 @@ import org.zhx.tictactoe.TicTacToe;
  */
 public class App 
 {
+    public static void testTicTacToe(){
+        new TicTacToe().run();
+    }
     public static void main( String[] args )
     {
-        new TicTacToe().run();
+
     }
 }

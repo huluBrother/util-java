@@ -1,7 +1,9 @@
 package org.zhx.poi;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
@@ -44,24 +46,39 @@ public class POIUtil {
                 int firstRowNum  = sheet.getFirstRowNum();
                 //获得当前sheet的结束行
                 int lastRowNum = sheet.getLastRowNum();
+                //获得title
+                Row rowTiles = sheet.getRow(0);
+                int rowTilesFirst = rowTiles.getFirstCellNum();
+                int rowTileslast = rowTiles.getPhysicalNumberOfCells();
+
+                //循环当前行
+//                for(int cellNum = rowTilesFirst; cellNum < rowTileslast;cellNum++){
+//                    Cell cell = rowTiles.getCell(cellNum);
+//                    test.put(getCellValue(cell),"test");
+//                }
+//                System.out.println(test);
+
+
                 //循环除了第一行的所有行
                 for(int rowNum = firstRowNum+1;rowNum <= lastRowNum;rowNum++){
+                    Map<String,String> test = new HashMap<String, String>();
                     //获得当前行
                     Row row = sheet.getRow(rowNum);
                     if(row == null){
                         continue;
                     }
-                    //获得当前行的开始列
-                    int firstCellNum = row.getFirstCellNum();
-                    //获得当前行的列数
-                    int lastCellNum = row.getPhysicalNumberOfCells();
-                    String[] cells = new String[row.getPhysicalNumberOfCells()];
                     //循环当前行
-                    for(int cellNum = firstCellNum; cellNum < lastCellNum;cellNum++){
-                        Cell cell = row.getCell(cellNum);
-                        cells[cellNum] = getCellValue(cell);
+                    System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+                    for(int cellNum = rowTilesFirst; cellNum < rowTileslast;cellNum++){
+                        //Cell cell = ;
+                        //cells[cellNum] = getCellValue(cell);
+                        String key = getCellValue(rowTiles.getCell(cellNum));
+                        String value = getCellValue(row.getCell(cellNum));
+                        test.put(key,value);
+
                     }
-                    list.add(cells);
+                    System.out.println(test);
+                    System.out.println("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
                 }
             }
             workbook.close();
@@ -140,6 +157,7 @@ public class POIUtil {
                 cellValue = "未知类型";
                 break;
         }
+
         return cellValue;
     }
 }
