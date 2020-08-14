@@ -8,7 +8,7 @@ import java.util.concurrent.TimeUnit;
 public class TestRun {
 
     public static void main(String[] args) {
-        try{
+        try {
             WriteData writeData = new WriteData();
             ReadData readData = new ReadData();
 
@@ -20,20 +20,19 @@ public class TestRun {
             out.connect(in);
 
             //开启写线程
-            ThreadWrite threadWrite = new ThreadWrite(writeData,out);
-            threadWrite.run();
+            ThreadWrite threadWrite = new ThreadWrite(writeData, out);
+            threadWrite.start();
 
-//            TimeUnit.SECONDS.sleep(2);
+            Thread.sleep(4000);
 
 
             //开启读线程
-            ThreadRead threadRead = new ThreadRead(readData,in);
-            threadRead.run();
-
-
-
+            ThreadRead threadRead = new ThreadRead(readData, in);
+            threadRead.start();
 
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }

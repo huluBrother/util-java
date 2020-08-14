@@ -8,13 +8,15 @@ public class WriteData {
 
     public void writeMethod(PipedOutputStream out){
         try{
-            for(int i=0;i<500;i++){
-                StringBuffer buffer = new StringBuffer("当前次数");
+            for(int i=0;i<200;i++){
+                StringBuffer buffer = new StringBuffer("中文----->");
                 buffer.append((i+1));
+                buffer.append("\n");
                 out.write(buffer.toString().getBytes());
-                System.out.println("write ===> " + buffer.toString());
+                out.flush();
+                //System.out.println("write ===> " + buffer.toString());
             }
-            out.flush();
+           //
             out.close();
         } catch (IOException e) {
             e.printStackTrace();
